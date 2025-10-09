@@ -144,7 +144,6 @@ future_enhancements:
 
 credits:
   author: "Shanmugapriyan"
-  email: "shanmugapriyan@example.com"
   github: "https://github.com/SHANMUGAPRIYAN711"
   collaborators: []
   license: "MIT License"
