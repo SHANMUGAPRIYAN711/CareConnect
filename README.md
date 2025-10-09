@@ -1,167 +1,128 @@
 project:
   name: CareConnect
-  tagline: "Centralized Hospital Management and Appointment System"
-    CareConnect is a full-stack web-based hospital management system designed to streamline
-    the process of online appointment booking, doctor-patient interaction, and administrative
-    hospital operations. It provides three key user roles — Admin, Doctor, and Patient — with
-    secure authentication, efficient scheduling, and AI-assisted features like voice-based
-    appointment booking.
+  description: >
+    CareConnect is a hospital management system that enables patients,
+    doctors, and admins to interact seamlessly for appointment scheduling,
+    profile management, and healthcare operations.
 
 repository:
-  url: "https://github.com/SHANMUGAPRIYAN711/CareConnect"
+  url: https://github.com/SHANMUGAPRIYAN711/CareConnect
   structure:
-    - admin/: "Admin dashboard and configuration module"
-    - backend/: "Server-side logic, APIs, and database integration"
-    - frontend/: "User interface (React or web components)"
-    - vercel.json: "Deployment configuration for hosting"
-    - README.yaml: "Documentation file"
+    - admin/
+    - backend/
+    - frontend/
+    - README.yaml (or README.md)
+    - .gitignore
+    - package.json (in backend & frontend)
+    - vercel.json (or deployment config)
 
-roles:
+features:
+  common:
+    - Role-based authentication (Admin, Doctor, Patient)
+    - Secure password storage (bcrypt)
+    - API-driven backend (Express / Node.js)
+    - Database integration (e.g. MongoDB or similar)
   admin:
-    - Secure login and access control
-    - CRUD operations for doctor profiles
-    - Manage all appointments and reports
-    - Monitor hospital activities via dashboard
+    - Create, read, update, delete (CRUD) for doctor profiles
+    - View and manage all appointments
+    - Dashboard metrics and reports
   doctor:
-    - Secure login and dashboard
-    - View scheduled appointments
-    - Manage personal profile and availability
-    - Track earnings and performance
+    - Login / logout
+    - View upcoming appointments
+    - Manage personal profile
+    - View earnings (if applicable)
   patient:
-    - Registration and authentication
-    - Search and filter doctors by specialization
-    - Book appointments within a 7-day window
-    - Voice-based appointment booking via AI
-    - View appointment history
-
-tech_stack:
-  frontend:
-    - React.js
-    - HTML, CSS, JavaScript
-  backend:
-    - Node.js
-    - Express.js
-  database:
-    - MongoDB (Mongoose)
-  authentication:
-    - JWT (JSON Web Token)
-    - bcrypt (for password hashing)
-  payment_gateways:
-    - Stripe
-    - Razorpay
-  deployment:
-    - Vercel / Render / MongoDB Atlas
-  version_control:
-    - Git and GitHub
-
-backend_dependencies:
-  - bcrypt: "Password hashing"
-  - cloudinary: "Image storage"
-  - cors: "Cross-origin requests"
-  - dotenv: "Environment variable management"
-  - express: "Web framework for Node.js"
-  - jsonwebtoken: "Authentication using JWT"
-  - mongoose: "ODM for MongoDB"
-  - multer: "File uploads"
-  - nodemon: "Development auto-restart"
-  - razorpay: "Payment integration"
-  - stripe: "Payment integration"
-  - validator: "Data validation"
+    - Register / Login / Logout
+    - Browse doctors, filter by specialty
+    - Book appointments within next 7 days
+    - Optionally voice-driven booking (if implemented)
+    - View own appointments
 
 installation:
   prerequisites:
-    - Node.js (v16 or above)
+    - Node.js ≥ version X
     - npm or yarn
-    - MongoDB (local or Atlas)
+    - Database (e.g. MongoDB)
   steps:
-    - Step 1: Clone the repository
-      command: "git clone https://github.com/SHANMUGAPRIYAN711/CareConnect.git"
-    - Step 2: Install backend dependencies
-      path: "cd backend"
-      command: "npm install"
-    - Step 3: Create an .env file with the following variables
-      env_variables:
-        - PORT=5000
-        - DB_URI=your_mongodb_connection_string
-        - JWT_SECRET=your_jwt_secret
-        - STRIPE_KEY=your_stripe_secret
-        - RAZORPAY_KEY_ID=your_razorpay_key
-        - RAZORPAY_KEY_SECRET=your_razorpay_secret
-    - Step 4: Run the backend server
-      command: "npm run server"
-    - Step 5: Setup frontend
-      path: "../frontend"
-      command: "npm install && npm start"
+    - Clone repository: `git clone https://github.com/SHANMUGAPRIYAN711/CareConnect.git`
+    - Navigate into `backend` folder
+      - `npm install`
+      - Create `.env` file, add required environment variables:
+        - `PORT`
+        - `DB_URI`
+        - `JWT_SECRET`
+        - `...` (other keys: payment keys, email, etc.)
+      - Run server: `npm start` (or `npm run server` for nodemon)
+    - Navigate into `frontend` folder
+      - `npm install`
+      - Configure frontend `.env` if needed
+      - Start: `npm start`
+    - Ensure backend and frontend are running (e.g. backend on port 5000, frontend on 3000)
 
-usage_flow:
-  patient:
-    - Register or login
-    - Browse doctors by specialization
-    - Choose available date and time within 7 days
-    - Confirm booking (voice-enabled option available)
-    - View appointment confirmation
-  doctor:
-    - Login to personal dashboard
-    - View upcoming appointments
-    - Manage schedules and patient data
-    - Track earnings
-  admin:
-    - Login to admin dashboard
-    - Manage doctors and patient appointments
-    - Generate performance and booking reports
+usage:
+  flows:
+    - As Admin:
+        * Sign in
+        * Add new doctor profile (name, specialization, fees, etc.)
+        * View / delete / update doctor records
+        * See all appointment requests and statuses
+    - As Doctor:
+        * Login
+        * View list of patient appointments
+        * Accept or reject appointment
+        * See notification or dashboard for earnings / schedule
+    - As Patient:
+        * Register / Login
+        * Browse doctors by specialty
+        * Choose a date / time slot within next 7 days
+        * Confirm booking (optionally using voice input)
+        * View booked appointments
 
-environment_variables:
+project-details:
   backend:
-    - PORT: "Backend server port"
-    - DB_URI: "MongoDB connection string"
-    - JWT_SECRET: "JWT signing key"
-    - STRIPE_KEY: "Stripe secret key"
-    - RAZORPAY_KEY_ID: "Razorpay API key"
-    - RAZORPAY_KEY_SECRET: "Razorpay API secret"
-    - EMAIL_USER: "SMTP email ID (optional)"
-    - EMAIL_PASS: "SMTP password (optional)"
+    language: JavaScript / TypeScript (as applicable)
+    framework: Express or similar
+    important-packages:
+      - bcrypt — for hashing passwords
+      - jsonwebtoken — for authentication tokens
+      - multer — for file uploads
+      - cors — for cross-origin support
+      - mongoose (or equivalent) — for database schema & operations
+      - Stripe / Razorpay — for payment integration (if present)
   frontend:
-    - REACT_APP_API_URL: "Backend API base URL"
+    libraries / frameworks: React / Vue / Angular / etc.
+    features:
+      - Responsive UI
+      - Form controls for login, registration, booking
+      - Voice command support (if implemented)
+      - Filter & search (doctors by specialization)
+      - Appointment list & status display
 
-features_summary:
-  - Role-based authentication and authorization
-  - Secure password encryption
-  - Voice AI booking for accessibility
-  - Appointment filtering and scheduling
-  - Doctor specialization search
-  - Real-time database interaction
-  - Integrated payment gateways
-  - Scalable modular architecture
+environment-variables:
+  backend:
+    - PORT: server listening port
+    - DB_URI: connection string to database
+    - JWT_SECRET: secret for JWT token generation
+    - EMAIL_USER / EMAIL_PASS: for sending emails (optional)
+    - PAYMENT_KEY / PAYMENT_SECRET: for integrating payments
+  frontend:
+    - REACT_APP_API_URL (or similar): endpoint of backend API
+    - Any other keys if using voice / speech APIs
 
-future_enhancements:
-  - Real-time notifications using Socket.IO
-  - Email/SMS reminders for appointments
-  - Electronic Health Record (EHR) integration
-  - Role expansion: Nurse & Lab modules
-  - Analytics dashboard for admins
-  - AI-powered doctor recommendations
-  - Dark/light mode support in UI
+future-enhancements:
+  - Real-time notifications via WebSocket / Socket.IO
+  - SMS / Email reminders for upcoming appointments
+  - Integration of Electronic Health Records (EHR)
+  - Role for Nurses, Lab Tests, Reports
+  - Analytics and visualization (charts, statistics)
+  - Admin-level audit logs and activity tracking
 
 credits:
-  author: "Shanmugapriyan"
-  github: "https://github.com/SHANMUGAPRIYAN711"
-  collaborators: []
-  license: "MIT License"
-  acknowledgements:
-    - Node.js and Express.js
-    - MongoDB Atlas
-    - Razorpay and Stripe APIs
-    - React.js community
+  author: Shanmugapriyan (or your name)
+  collaborators: (if any)
+  license: (choose a license, e.g. MIT)
 
-insight:
-  summary: >
-    CareConnect bridges the gap between patients and healthcare providers through an intuitive,
-    cloud-based web solution. It enhances user accessibility, automates appointment management,
-    and offers a scalable architecture that can be adapted for hospitals, clinics, and
-    telemedicine systems.
-  objective: >
-    To centralize hospital operations and deliver a modern healthcare experience through
-    AI-driven and cloud-integrated solutions.
-  vision: >
-    A connected healthcare ecosystem where patients, doctors, and administrators collaborate
-    seamlessly for better outcomes.
+contact:
+  email: your-email@example.com
+  github: SHANMUGAPRIYAN711
+
