@@ -1,6 +1,5 @@
 project:
   name: CareConnect
-  description: >
     CareConnect is a hospital management system that enables patients,
     doctors, and admins to interact seamlessly for appointment scheduling,
     profile management, and healthcare operations.
