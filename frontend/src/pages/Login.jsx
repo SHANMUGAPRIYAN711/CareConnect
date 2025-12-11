@@ -1,6 +1,7 @@
+// frontend/src/pages/Login.jsx
 import React, { useContext, useEffect, useState } from 'react'
 import { AppContext } from '../context/AppContext'
-import axios from 'axios'
+import api from '../api'          // <- use centralized API client
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 
@@ -13,33 +14,39 @@ const Login = () => {
   const [password, setPassword] = useState('')
 
   const navigate = useNavigate()
-  const { backendUrl, token, setToken } = useContext(AppContext)
+  const { /* backendUrl, */ token, setToken } = useContext(AppContext)
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
 
-    if (state === 'Sign Up') {
+    try {
+      if (state === 'Sign Up') {
+        const { data } = await api.post('/api/user/register', { name, email, password })
 
-      const { data } = await axios.post(backendUrl + '/api/user/register', { name, email, password })
+        if (data.success) {
+          localStorage.setItem('token', data.token)
+          setToken(data.token)
+          toast.success('Account created')
+        } else {
+          toast.error(data.message || 'Registration failed')
+        }
 
-      if (data.success) {
-        localStorage.setItem('token', data.token)
-        setToken(data.token)
       } else {
-        toast.error(data.message)
+        const { data } = await api.post('/api/user/login', { email, password })
+
+        if (data.success) {
+          localStorage.setItem('token', data.token)
+          setToken(data.token)
+          toast.success('Logged in')
+        } else {
+          toast.error(data.message || 'Login failed')
+        }
       }
-
-    } else {
-
-      const { data } = await axios.post(backendUrl + '/api/user/login', { email, password })
-
-      if (data.success) {
-        localStorage.setItem('token', data.token)
-        setToken(data.token)
-      } else {
-        toast.error(data.message)
-      }
-
+    } catch (err) {
+      // network / unexpected errors
+      const message = err?.response?.data?.message || err.message || 'Something went wrong'
+      toast.error(message)
+      console.error('Auth error:', err)
     }
 
   }
